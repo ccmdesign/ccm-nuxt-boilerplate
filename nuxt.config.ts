@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   modules: ['nuxt-gtag'],
   gtag: {
-    id: projectConfig.title
+    id: projectConfig.gtag
   },
   css: [
     '@ccmdesign/ccm-ds/assets/css/main.scss',
