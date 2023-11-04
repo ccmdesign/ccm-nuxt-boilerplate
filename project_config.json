@@ -1,6 +1,14 @@
 {
   "title": "Project Title",
   "description": "Project Description",
-  "gtag": "G-XXXXXXXXXX"
+  "url": "https://example.com",
+  "image": "https://example.com/images/ogp.png",
+
+  "gtm": "GTM-XXXXXXX",
+  "gtag": "G-XXXXXXXXXX",
+  
+  "client": "CCM Design Inc.",
+  "license_name": "MIT",
+  "license_url": "https://opensource.org/licenses/MIT"
 }
 
