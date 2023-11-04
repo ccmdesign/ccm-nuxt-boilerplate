@@ -1,8 +1,8 @@
 {
   "title": "Project Title",
-  "description": "Project Description",
+  "description": "Project Description can be a longer text, ideally the length of a tweet.",
   "url": "https://example.com",
-  "image": "https://example.com/images/ogp.png",
+  "image": "https://example.com/images/open-graph-image.jpg",
 
   "gtm": "GTM-XXXXXXX",
   "gtag": "G-XXXXXXXXXX",
