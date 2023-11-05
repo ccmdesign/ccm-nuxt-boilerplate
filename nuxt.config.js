@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     ],
     script: [],
   },
-  modules: ['nuxt-gtag'],
+  modules: ['nuxt-gtag', '@nuxt/content'],
   gtag: {
     id: projectConfig.gtag
   },
@@ -31,6 +31,9 @@ export default defineNuxtConfig({
     'public/assets/theme.css',
     'public/assets/styles.css',
   ],
+  content: {
+    
+  },
   components: {
     "dirs": [
       {
