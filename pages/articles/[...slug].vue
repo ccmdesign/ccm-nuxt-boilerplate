@@ -4,8 +4,14 @@
   </div>
 </template>
 
-<script setup>
-
+<script>
+export default {
+  watchQuery: true,
+  async asyncData({ params, $content }) {
+    const article = await $content('articles', params.slug).fetch()
+    return { article }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
