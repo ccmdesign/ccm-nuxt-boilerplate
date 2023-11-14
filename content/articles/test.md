@@ -1,4 +1,5 @@
 ---
+slug: test
 title: 'Nuxt Content v2 is awesome!'
 description: 'This is my first article!'
 img: 'img/imageName.jpg'
