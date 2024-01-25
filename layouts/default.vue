@@ -1,9 +1,13 @@
 <template>
   <div class="page-wrapper">
+    <header>
+      <ccm-nav />
+    </header>
     <main>
       <slot />
     </main>
     <footer>
+      <h2>Footer</h2>
       <div class="by-ccm">
         <span>{{ currentYear }} ® Copyright {{ projectConfig.client }}<span class="desktop-only"> | Licensed under <a :href="projectConfig.license_url">{{ projectConfig.license_name }}</a></span></span>
         <a href="https://www.ccmdesign.ca" target="_blank">by ccm.design</a>
@@ -29,6 +33,18 @@ onMounted(() => {
 .page-wrapper {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+
+  header { }
+
+  footer { }
+
+  main { flex: 1; }
+}
+
+footer {
+  padding-bottom: var(--s3);
 }
 
 .by-ccm {

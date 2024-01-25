@@ -14,12 +14,13 @@
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300');
+@import url('https://cloud.typography.com/7264818/6341032/css/fonts.css');
 /* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400;1,600;1,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,800;1,8..60,200;1,8..60,300;1,8..60,400;1,8..60,600;1,8..60,800&display=swap'); */
 
 :root, :after, :before {
   /* Set the project fonts */
-  --display-font: 'Montserrat', sans-serif;
-  --body-font: 'Merriweather', serif;
+  --display-font: "Sentinel SSm A", "Sentinel SSm B", serif;
+  --body-font: urw-din, sans-serif;
 
   /* --icon-font: 'Material Symbols Outlined'; */
   /* --icon-weight: 300; /* This variable is here in case we have multiple weights of the material symbols. */
@@ -36,17 +37,17 @@
     so the system will generate the same values for the three colors. 
   */
 
-  --base-h: 0;
-  --base-s: 0%;
-  --base-l: 8%;
+  --base-h: 217;
+  --base-s: 81%;
+  --base-l: 17%;
 
-  --primary-h: 274;
-  --primary-s: 58%;
-  --primary-l: 48%;
+  --primary-h: 217;
+  --primary-s: 81%;
+  --primary-l: 17%;
   
-  --accent-h: 115;
-  --accent-s: 50%;
-  --accent-l: 52%;
+  --accent-h: 54;
+  --accent-s: 100%;
+  --accent-l: 47%;
 
   /* --secondary-h: 126; */
   /* --secondary-s: 15%; */
