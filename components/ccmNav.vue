@@ -2,33 +2,13 @@
   <top-nav 
     class="ccm-main-menu" 
     project-logo="CCM Design" 
-    :menu-data="menu" 
+    :menu-data="menu"
     color-mode="positive"
   />
 </template>
 
 <script setup>
-const menu = [
-  {
-    label: 'What We Do',
-    url: '/services',
-    // submenu: [
-    //   {
-    //     label: 'UX Design',
-    //     url: '/ux-design'
-    //   },
-    // ]
-  },
-  {
-    label: 'Insights',
-    url: '/insights',
-    alignRight: 'false'      },
-  {
-    label: 'Contact',
-    url: '/contact',
-  }
-  
-]
+import { menu } from '~/composables/navigation.js'
 </script>
 
 <style lang="scss" scoped>
