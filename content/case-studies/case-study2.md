@@ -1,13 +1,12 @@
 ---
-slug: case-study1
-title: 'This is Case study 1'
+slug: case-study2
+title: 'This is Case study 2'
 description: 'This is my first article!'
 img: 'img/imageName.jpg'
 tags: [Nuxt, Content, Learning]
-label: Read More
 ---
 
-# Case Study 1 from teh md section
+# Case Study 2 from teh md section
 
 test content
 
