@@ -22,6 +22,6 @@ const props = defineProps(["type"]);
 
 <style scoped>
 .info-box {
-  background-color: red;
+  background-color: var(--base-color-10);
 }
 </style>
