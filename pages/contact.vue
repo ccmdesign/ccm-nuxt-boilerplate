@@ -1,16 +1,22 @@
 <template>
-    <ccm-layout sidebar="false">
-      <template #main>
-      <base-section id="contact" size="l">
-        <center-l size="wide">
+  <base-section id="contact" size="l">
+    <center-l size="wide">
+      <stack-l>
+        <h2>Contact</h2>
+        <form action="">
           <stack-l>
-            <h2>Contact</h2>
-            <p>Form</p>
+            <base-field />
+            <base-field />
+            <base-textarea />
+            <div class="text-align:right">
+              <base-button label="Send" visual="primary" color="primary" icon-after="send" />
+            </div>
+            
           </stack-l>
-        </center-l>
-      </base-section>
-      </template> 
-    </ccm-layout>
+        </form>
+      </stack-l>
+    </center-l>
+  </base-section>
 </template>
 
 <script setup>
