@@ -1,5 +1,5 @@
 <template>
-  <stack-l class="service-card | base-card">
+  <stack-l class="case-study-card | base-card">
     <h3>{{ content.title }}</h3>
     <p>{{ content.description }}</p>
     <p><a class="button" :href="content.url">{{ content.label ? content.label : 'Read More' }}</a></p>
@@ -11,10 +11,10 @@ const props = defineProps({
   content: {
     type: Object,
     default: {
-      title: 'service Title',
-      excerpt: 'service Description',
-      slug: 'service-slug',
-      url: '/services/service-slug',
+      title: 'Insight Title',
+      excerpt: 'Insight Description',
+      slug: 'insight-slug',
+      url: '/insights/insight-slug',
       img: 'img/imageName.jpg',
       label: 'Read More'
     }
