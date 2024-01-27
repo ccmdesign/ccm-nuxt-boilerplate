@@ -1,73 +1,45 @@
 <template>
-  <ccm-layout sidebar="false">
-    <template #header>
-      <ccm-hero>
-        <template #top-bar>
-          <top-nav project-logo="CCM Design"/>
-        </template>
-
-        <center-l size="wide">
-          <stack-l>
-            <h1 class="color:white">What we do</h1>
-          </stack-l>
-        </center-l>
-      </ccm-hero>
-    </template>
-
-    <template #main>
-      <base-section id="what-we-do" size="l">
-        <center-l size="wide">
-          <stack-l>
-            <h2>What We Do</h2>
-            <h3>100-250 Word Introduction</h3>
-            <p>This intro should tell a prospect whether they’re in the right place, not provide detail on everything you do.</p>
-          </stack-l>
-        </center-l>
-      </base-section>
-
-      <base-section id="testimonial" size="l">
-        <center-l size="wide">
-          <ccm-testimonial />
-        </center-l>
-      </base-section>
-
-      <base-section id="services" size="l">
-        <center-l size="wide">
-          <stack-l>
-            <h2>Service List</h2>
-            <p>This list represents the primary action a prospect should take next: to learn more detail about your services/disciplines on separate pages. It should be easily scannable.</p>
-          </stack-l>
-        </center-l>
-      </base-section>
-      
-      <base-section id="cta" size="l">
-        <center-l size="wide">
-          <ccm-cta />
-        </center-l>
-      </base-section>
-      
-    </template>
-  </ccm-layout>
+  <base-section>
+    <center-l size="wide">
+      <h1>What We do</h1>
+      <stack-l class="list">
+        <ccm-service class="list__item" v-for="post in data.services" v-bind:key="post.slug" :content="post" />
+      </stack-l>
+      <div class="instructions">
+        <h3>Dev Info</h3>
+        <cluster-l>
+          <a href="https://www.newfangled.com/capabilities-landing-page-layout/" class="button" target="_blank">More Information</a>
+          <a href="https://file.notion.so/f/f/e07198ee-0287-49bb-a551-847009666233/8ba74af2-1ada-4d78-aae8-19b87950aef1/Capabilities_Landing_Page_Wireframe.pdf?id=9bd84f93-c303-461f-b4c0-3e9c6c50e777&table=block&spaceId=e07198ee-0287-49bb-a551-847009666233&expirationTimestamp=1706400000000&signature=7_Mz-xpqMBO0v_39VkoSAsnamP41tk3J2IIkBaxzQMM&downloadName=Capabilities+Landing+Page+Wireframe.pdf" target="_blank" class="button">More Information 2</a>
+        </cluster-l>
+      </div>
+    </center-l>
+  </base-section>
 </template>
 
 <script setup>
+  // recuperar os dados do content. voce pode usar o querycontent
+  // para filtrar os dados aqui.
+  const services = await queryContent('services').find();
 
-// Use this if you want to overwrite the default head tags, mainly the OpenGraph tags.
+  // declaro uma variável reactive para interagir com o conteudo exibido em tempo real
+  // alteracoes em variaveis reactive refletem no template diretamente
+  const data = reactive({
+      services: [],
+  });
 
-// import { useHead } from '@nuxtjs/composition-api'
+  // exemplo de tratamento de dados apenas exemplo:
+  services.forEach(post => {
+    const service = {
+      title: post.title,
+      description: post.description,
+      slug: post.slug,
+      url: `/services/${post.slug}`
+    }
+    data.services.push(service);
+  });
 
-// useHead(() => ({
-//   title: 'Page Title',
-//   meta: [
-//     { hid: 'og:title', property: 'og:title', content: 'Page Title' },
-//     { hid: 'og:description', property: 'og:description', content: 'Page Description' },
-//     { hid: 'og:image', property: 'og:image', content: 'https://example.com/page-image.jpg' },
-//     { hid: 'og:url', property: 'og:url', content: 'https://example.com/page-url' },
-//     // other Open Graph tags...
-//   ],
-// }))
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
 </style>
