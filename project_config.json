@@ -1,14 +1,15 @@
 {
-  "title": "Project Title",
-  "description": "Project Description can be a longer text, ideally the length of a tweet.",
-  "url": "https://example.com",
-  "image": "https://example.com/images/open-graph-image.jpg",
+  "title": "CCM Design | We design digital products for research institutions",
+  "description": "Since 2009 we help universities, think tanks, NGOs, international organizations and governments to better showcase the knowledge they produce. From from research findings report to large document repositories, from research websites to design systems.",
+  "url": "https://www.ccmdesign.ca",
+  "image": "https://ccmdesign.ca/images/meta/social-share.jpg",
 
   "gtm": "GTM-N6ZCLNH",
   "gtag": "G-XXXXXXXXXX",
   
   "client": "CCM Design Inc.",
   "license_name": "MIT",
-  "license_url": "https://opensource.org/licenses/MIT"
+  "license_url": "https://opensource.org/licenses/MIT",
+  "aboutFooter": "Since 2009 we help universities, think tanks, NGOs, international organizations and governments to better showcase the knowledge they produce. From from research findings report to large document repositories, from research websites to design systems."
 }
 
