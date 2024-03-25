@@ -30,6 +30,7 @@ export default defineNuxtConfig({
     '@ccmdesign/ccm-ds/assets/css/main.scss',
     'public/assets/theme.css',
     'public/assets/styles.css',
+    '/assets/css/main-theme.scss',
   ],
   content: {
     
