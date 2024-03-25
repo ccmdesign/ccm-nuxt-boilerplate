@@ -94,7 +94,7 @@
   /* --base-border: var(--base-border-width) var(--base-border-style) hsla(var(--base-hsl), .1); */
 
   /* Base Spacing */ 
-  /* --base-gap: var(--s1); */
+  --base-gap: var(--s3);
   
   /* ToDo: I'm not sure this is a good thing. 
      base-padding is not equal to base-padding-inline and block */

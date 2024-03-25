@@ -1,1 +1,27 @@
 /* In this file you will add your project wide styles. */
+.columns { 
+  display: flex; 
+  gap: var(--base-gap);
+}
+
+.column { flex: 0; }
+.column[fill-available=true] { flex: 1; }
+
+
+
+/* ============================================ */
+/* ================== TEMP ==================== */
+/* ============================================ */
+.cta1, 
+.cta2 {
+  padding: var(--base-padding);
+  border: 1px solid #000;
+}
+
+.instructions {
+  margin-top: var(--s1);
+  padding: var(--base-padding);
+  outline: 2px solid red;
+
+  h3 { font-family: sans-serif; }
+}
