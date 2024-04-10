@@ -1,91 +1,111 @@
 <template>
-    <section>
-        <slot name="navBar"></slot>
-        <div :style="`background-color: ${heroColor};`">
-            <center-l class="repositories" size="wide">
-                <stack-l space="var(--s2)">
-                    <div class="back-button" v-if="route.query && route.query.slug">
-                        <base-button el="a" size="m" :href="goBack()" class="button" visual="transparent" color="white" target="_blank" iconBefore="chevron_left">Back to search</base-button>
-                    </div>
-                    <h1 :style="`color: ${heroTextColor};`">{{ title }}</h1>
-                    <slot name="beforeSearch" v-if="!route.query || !route.query.slug"></slot>
-                    <div class="repositories__filters" id="search-form" v-if="!route.query || !route.query.slug">
+  <section>
+    <slot name="navBar"></slot>
+    <div :style="`background-color: ${heroColor};`">
+      <center-l class="repositories" size="wide">
+        <stack-l space="var(--s2)">
+          <div class="back-button" v-if="route.query && route.query.slug">
+            <base-button el="a" size="m" :href="goBack()" class="button" visual="transparent" color="white"
+              iconBefore="chevron_left">Back to search</base-button>
+          </div>
+          <slot name="headings">
+            <h1 :style="`color: ${heroTextColor};`">{{ title }}</h1>
+          </slot>
+          <slot name="beforeSearch" v-if="!route.query || !route.query.slug"></slot>
+          <div class="repositories__filters" id="search-form" v-if="!route.query || !route.query.slug">
 
-                      <div class="repositories__search-line">
-                        <control-group>
-                          <base-input type="text" name="search" placeholder="Search..." class="repositories__search-input" v-model="data.filterValues.term" />
-                          <base-button el="button" size="l" class="button" visual="primary" color="primary" target="blank" @click.prevent="filterList">Search</base-button>
-                        </control-group>
-                        <base-button el="button" size="l" class="button" visual="secondary" color="white" target="blank" @click.prevent="resetForm">Reset</base-button>
-                      </div>
+            <div class="repositories__search-line">
+              <control-group>
+                <base-input type="text" name="search" placeholder="Search..." class="repositories__search-input"
+                  v-model="data.filterValues.term" />
+                <base-button el="button" size="l" class="button" visual="primary" color="primary" target="blank"
+                  @click.prevent="filterList">Search</base-button>
+              </control-group>
+              <base-button el="button" size="l" class="button" visual="secondary" color="white" target="blank"
+                @click.prevent="resetForm">Reset</base-button>
+            </div>
 
-                      <div class="repositories__filter-line">
-                          <ccm-select :name="filter.id" :id="filter.id" class="repositories__search-select" v-for="filter in data.filters" v-bind:key="filter.id" v-model="data.filterValues.options[filter.id]" @change="filterList">
-                            <option value="">{{ `Select: ${filter.label}` }}</option>
-                            <option :value="option.value" v-for="option in data.options[filter.id].choices" v-bind:key="option.value" v-if="data.options[filter.id] && data.options[filter.id].choices">{{ option.text }}</option>
-                          </ccm-select>
-                      </div>
-                    </div>
-                    <slot name="afterSearch" v-if="!route.query || !route.query.slug"></slot>
-                </stack-l>
-            </center-l>
-        </div>
-        <div>
-            <center-l size="wide">
-                <stack-l space="var(--s2)">
-                    <div class="repositories__list | repo-list">
-                        <div class="repo-list__switch" v-if="!route.query || !route.query.slug" :class="{'repo-list__switch--right' : data.listType == 'expand'}">
-                            <div class="repo-list__switch-group">
-                                <input id="switch-coll" type="radio" value="collapse" v-model="data.listType" @change="toggleAll" />
-                                <label for="switch-coll">List</label>
-                            </div>
-                            <div class="repo-list__switch-group">
-                                <input id="switch-exp" type="radio" value="expand" v-model="data.listType" @change="toggleAll" />
-                                <label for="switch-exp">Description</label>
-                            </div>
-                        </div>
-                        <stack-l class="repo-list__table" :style="`--column-count: ${data.filters.length};`">
-                            <div class="repo-list__header">
-                                <div class="repo-list__header-item col-flex">Name</div>
-                                <div class="repo-list__header-item" v-for="filter in data.filters" v-bind:key="filter.id">{{ filter.label }}</div>
-                                <div class="repo-list__header-item"></div>
-                            </div>
-                            <div class="repo-list__body" :class="{'repo-list__body--expanded': !project.collapse}" v-for="project in data.repositories" v-bind:key="project.slug" @click="!route.query || !route.query.slug?project.collapse = !project.collapse: false">
-                              
-                                <div class="repo-list__body-item | repo-list__body-title col-flex">{{ project.name }}</div>
-                            
-                              
-                                <ccm-prose class="repo-list__body-item | repo-list__body-description"><div v-html="project.description"></div></ccm-prose>
-                                <div class="repo-list__body-item" v-for="filter in data.filters" v-bind:key="filter.id">
-                                    <ccm-chip class="repo-list__tag" v-if="project[filter.id] && project[filter.id].length === 1"
-                                      v-for="(i, index) in project[filter.id]"
-                                      :key="i"
-                                      :color="(index % 3 === 0) ? 'accent' : ((index % 3 === 1) ? 'tertiary' : 'primary')"
-                                    >{{ findTagName(filter.id, i) }}</ccm-chip>
-                                    
-                                    <ccm-chip class="repo-list__tag" v-if="project[filter.id] && project[filter.id].length >= 2"
-                                      v-for="(i, index) in project[filter.id]"
-                                      :key="i"
-                                      :color="(index % 3 === 0) ? 'primary' : ((index % 3 === 1) ? 'tertiary' : 'accent')"
-                                    >{{ findTagName(filter.id, i) }}</ccm-chip>
-                                    <ccm-chip class="repo-list__tag | repo-list__tag--shown" v-if="project[filter.id] && project[filter.id].length >= 2">
-                                        +{{ project[filter.id].length - 1 }}
-                                    </ccm-chip>
-                                </div>
-                                
-                                
-                                <base-button class="repo-list__collapse-trigger" size="l" :class="{'repo-list__collapse-trigger--expanded': !project.collapse}" visual="ghost" icon-only icon-before="expand_more" v-if="!route.query || !route.query.slug" />    
-                                <div class="repo-list__actions">
-                                    <base-button el="a" size="m" :href="openInNewTab(project.slug)" target="_blank" class="button" visual="primary" color="secondary" iconBefore="arrow_outward" v-if="!route.query || !route.query.slug">Open in new tab</base-button>
-                                    <base-button el="a" size="m" :href="project.url" class="button" visual="primary" color="primary" target="_blank" iconBefore="link">Source</base-button>
-                                </div>
-                            </div>
-                          </stack-l>
-                    </div>
-                </stack-l>
-            </center-l>
-        </div>
-    </section>
+            <div class="repositories__filter-line">
+              <ccm-select :name="filter.id" :id="filter.id" class="repositories__search-select"
+                v-for="filter in data.filters" v-bind:key="filter.id" v-model="data.filterValues.options[filter.id]"
+                @change="filterList">
+                <option value="">{{ `Select: ${filter.label}` }}</option>
+                <option :value="option.value" v-for="option in data.options[filter.id].choices"
+                  v-bind:key="option.value" v-if="data.options[filter.id] && data.options[filter.id].choices">{{
+                  option.text }}</option>
+              </ccm-select>
+            </div>
+          </div>
+          <slot name="afterSearch" v-if="!route.query || !route.query.slug"></slot>
+        </stack-l>
+      </center-l>
+    </div>
+    <div>
+      <center-l size="wide">
+        <stack-l space="var(--s2)">
+          <div class="repositories__list | repo-list">
+            <div class="repo-list__switch" v-if="!route.query || !route.query.slug"
+              :class="{'repo-list__switch--right' : data.listType == 'expand'}">
+              <div class="repo-list__switch-group">
+                <input id="switch-coll" type="radio" value="collapse" v-model="data.listType" @change="toggleAll" />
+                <label for="switch-coll">List</label>
+              </div>
+              <div class="repo-list__switch-group">
+                <input id="switch-exp" type="radio" value="expand" v-model="data.listType" @change="toggleAll" />
+                <label for="switch-exp">Description</label>
+              </div>
+            </div>
+            <stack-l class="repo-list__table" :style="`--column-count: ${data.filters.length};`">
+              <div class="repo-list__header">
+                <div class="repo-list__header-item col-flex">Name</div>
+                <div class="repo-list__header-item" v-for="filter in data.filters" v-bind:key="filter.id">{{
+                  filter.label }}</div>
+                <div class="repo-list__header-item"></div>
+              </div>
+              <div class="repo-list__body" :class="{'repo-list__body--expanded': !project.collapse}"
+                v-for="project in data.repositories" v-bind:key="project.slug"
+                @click="!route.query || !route.query.slug?project.collapse = !project.collapse: false">
+
+                <div class="repo-list__body-item | repo-list__body-title col-flex">{{ project.name }}</div>
+
+
+                <ccm-prose class="repo-list__body-item | repo-list__body-description">
+                  <div v-html="project.description"></div>
+                </ccm-prose>
+                <div class="repo-list__body-item" v-for="filter in data.filters" v-bind:key="filter.id">
+                  <ccm-chip class="repo-list__tag" v-if="project[filter.id] && project[filter.id].length === 1"
+                    v-for="(i, index) in project[filter.id]" :key="i"
+                    :color="(index % 3 === 0) ? 'accent' : ((index % 3 === 1) ? 'tertiary' : 'primary')">{{
+                    findTagName(filter.id, i) }}</ccm-chip>
+
+                  <ccm-chip class="repo-list__tag" v-if="project[filter.id] && project[filter.id].length >= 2"
+                    v-for="(i, index) in project[filter.id]" :key="i"
+                    :color="(index % 3 === 0) ? 'primary' : ((index % 3 === 1) ? 'tertiary' : 'accent')">{{
+                    findTagName(filter.id, i) }}</ccm-chip>
+                  <ccm-chip class="repo-list__tag | repo-list__tag--shown"
+                    v-if="project[filter.id] && project[filter.id].length >= 2">
+                    +{{ project[filter.id].length - 1 }}
+                  </ccm-chip>
+                </div>
+
+
+                <base-button class="repo-list__collapse-trigger" size="l"
+                  :class="{'repo-list__collapse-trigger--expanded': !project.collapse}" visual="ghost" icon-only
+                  icon-before="expand_more" v-if="!route.query || !route.query.slug" />
+                <div class="repo-list__actions">
+                  <base-button el="a" size="m" :href="openInNewTab(project.slug)" target="_blank" class="button"
+                    visual="primary" color="secondary" iconBefore="arrow_outward"
+                    v-if="!route.query || !route.query.slug">Open in new tab</base-button>
+                  <base-button el="a" size="m" :href="project.url" class="button" visual="primary" color="primary"
+                    target="_blank" iconBefore="link">Source</base-button>
+                </div>
+              </div>
+            </stack-l>
+          </div>
+        </stack-l>
+      </center-l>
+    </div>
+  </section>
 </template>
 
 <script setup>
@@ -141,11 +161,7 @@
     });
 
     if(route.query && route.query.slug) {
-        data.repositories = [data.repositories.find((repo) => repo.slug === route.query.slug)];
-
-        data.repositories.forEach((repo) => {
-            repo.collapse = false;
-        });  
+        data.repositories = [data.repositories.find((repo) => repo.slug === route.query.slug)]; 
     } else {
         data.repositories.forEach((repo) => {
             repo.collapse = true;
